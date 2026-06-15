@@ -4,9 +4,6 @@ from typing import List, Optional
 
 from pydantic import AnyHttpUrl, BaseModel
 
-# -- Enums and Helpers
-
-
 class PartOfSpeechEnum(str, Enum):
     NOUN = "noun"
     GODAN_VERB = "godan_verb"  # e.g., kaku
@@ -20,38 +17,11 @@ class PartOfSpeechEnum(str, Enum):
     INTERJECTION = "interjection"
     PRONOUN = "pronoun"
 
-
-class CollectionBase(BaseModel):
-    """Highest level container (e.g., 'Japanese Language Learning' or Okinawa Trip)"""
-
-    name: str
-    description: str
-
-
-class Collection(CollectionBase):
-    id: int
-    user_id: int
-
-
 class Resource(BaseModel):
-    label: str  # e.g., "Urashima Taro Audio"
-    # e.g., "https://tuttlepublishing.com/..." [cite: 5]
+    label: str 
     url: AnyHttpUrl
 
-
-class TopicBase(BaseModel):
-    """A sub-category within a collection (e.g., 'Folktale Vocabulary')"""
-
-    collection_id: int
-    title: str
-    description: Optional[str] = ""
-
-
-class Topic(TopicBase):
-    id: int
-
-
-class TermBase(BaseModel):
+class EntryBase(BaseModel):
     """The actual glossary entry"""
 
     topic_id: int
@@ -71,9 +41,13 @@ class TermBase(BaseModel):
     next_review_date: Optional[datetime] = None
 
 
-class TermCreate(TermBase):
+class EntryCreate(EntryBase):
     pass
 
 
-class Term(TermBase):
+class Entry(EntryBase):
+    id: int
+
+
+class TermTermBase):
     id: int

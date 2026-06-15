@@ -1,12 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from config import settings
+# from config.database import
+from config.system import settings
 
 
 def create_app():
-    # to-do: app configuration via config.py
-    app = FastAPI(title="Japanese Glossary", version="1.0.0")
+    app = FastAPI(title=settings.PROJECT_NAME,
+                  version=settings.PROJECT_VERSION)
 
     app.add_middleware(
         CORSMiddleware,
